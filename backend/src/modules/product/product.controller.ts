@@ -1,8 +1,16 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
-import { ProductService } from './product.service';
-import { Prisma } from '@prisma/client';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  UsePipes,
+  ValidationPipe,
+} from "@nestjs/common";
+import { ProductService } from "./product.service";
+import { CreateProductDto } from "./dto/create-product.dto";
+import { Prisma } from "@prisma/client";
 
-@Controller('products')
+@Controller("products")
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
@@ -12,7 +20,8 @@ export class ProductController {
   }
 
   @Post()
-  create(@Body() data: Prisma.ProductCreateInput) {
-    return this.productService.create(data);
+  @UsePipes(new ValidationPipe({ whitelist: true }))
+  async create(@Body() createProductDto: CreateProductDto) {
+    return this.productService.create(createProductDto);
   }
 }

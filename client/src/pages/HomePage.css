@@ -1,0 +1,22 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th{
+    text-align: start;
+    border: 3px solid;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2; /* Серый цвет */
+  }
+  
+  tr:nth-child(odd) {
+    background-color: #ffffff; /* Белый цвет */
+  }
+  
+  td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }

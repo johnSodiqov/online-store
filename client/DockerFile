@@ -1,0 +1,19 @@
+# Используем Node.js как базовый образ
+FROM node:18-alpine AS builder
+
+# Устанавливаем рабочую директорию
+WORKDIR /app
+
+# Копируем файлы и устанавливаем зависимости
+COPY package.json package-lock.json ./
+RUN npm install --frozen-lockfile
+
+# Копируем весь проект и собираем его
+COPY . .
+RUN npm run build
+
+# Используем Nginx для раздачи собранного React-приложения
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

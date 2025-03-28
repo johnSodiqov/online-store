@@ -1,4 +1,3 @@
-version: "3.8"
 
 services:
   frontend:
@@ -15,7 +14,11 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgresql://postgres:psql1234@db:5432/mydb
+      DATABASE_URL: postgresql://postgres:psql1234@db:5432/postgres
+    command: >
+      sh -c "npx prisma migrate deploy &&
+             node dist/main.js"
+  
 
   db:
     image: postgres:15
@@ -23,7 +26,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: psql1234
-      POSTGRES_DB: mydb
+      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
     volumes:

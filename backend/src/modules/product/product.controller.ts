@@ -5,6 +5,8 @@ import {
   Body,
   UsePipes,
   ValidationPipe,
+  Delete,
+  Param
 } from "@nestjs/common";
 import { ProductService } from "./product.service";
 import { CreateProductDto } from "./dto/create-product.dto";
@@ -24,4 +26,9 @@ export class ProductController {
   async create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
   }
+
+  @Delete(":id")
+async delete(@Param("id") id: string) {
+  return this.productService.delete(id);
+}
 }

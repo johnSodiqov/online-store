@@ -13,4 +13,10 @@ export class ProductService {
   async create(data: Prisma.ProductCreateInput) {
     return this.prisma.product.create({ data });
   }
+  async delete(id: string) {
+    return this.prisma.product.delete({
+      where: { id },
+    });
+  }
+  
 }

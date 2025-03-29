@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchProducts, createProduct } from "../api/product";
+import { fetchProducts, createProduct, deleteProduct } from "../api/product";
 import { useState } from "react";
 import "./HomePage.css"
 
@@ -34,6 +34,12 @@ function HomePage() {
     setNewProduct({
       ...newProduct,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleDelete = (id) => {
+    deleteProduct(id).then(() => {
+      queryClient.invalidateQueries(["products"]); // Обновляем список
     });
   };
 
@@ -108,13 +114,14 @@ function HomePage() {
           onChange={handleChange}
           className="border p-2 mr-2"
         />
-        <button type="submit" className="bg-blue-500 text-white p-2">
+        <button type="submit" className="bg-blue-500 text-white p-2" >
           Добавить
         </button>
+
       </form>
 
       {/* Вывод списка товаров */}
-      <ul className="border p-4 rounded-lg">
+      <ul className="border  rounded-lg">
         {products.length === 0 ? (
           <p>Товаров нет</p>
         ) : (
@@ -125,15 +132,15 @@ function HomePage() {
               <th>Stock</th>
               <th>Description</th>
             { products.map((product) => (
-            // <li key={product.id} className="p-2 border-b">
-            //   {product.name} - {product.price} USD
-            // </li>
+
+
             <tr>
                 <td>{product.name}</td>
                 <td>{product.price}</td>
                 <td>{product.discount}</td>
                 <td>{product.stock}</td>
                 <td>{product.description}</td>
+                <td><button onClick={()=> handleDelete(product.id)}> Delete</button></td>
             </tr>
             
           ))}

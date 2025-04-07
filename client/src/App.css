@@ -1,3 +1,9 @@
 body{
-  background-color: #838383;
+  background-color: #FFF5E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  color: #2C4A36;
 }

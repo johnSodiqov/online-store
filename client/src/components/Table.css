@@ -1,0 +1,49 @@
+table {
+    width: 100%;
+    max-width: 1200px;
+    background: rgb(44, 44, 44);
+    font-family: "Courier New", Courier, monospace;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    color: black;
+  }
+  
+  caption {
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 12px 10px;
+    background-color: rgb(114, 114, 114);
+    caption-side: top;
+    text-align: left;
+  }
+  
+  thead {
+    background-color: rgb(66, 66, 66);
+    color: white;
+  }
+  
+  th, td {
+    padding: 10px;
+    border-right: 1px solid rgb(203, 203, 203);
+  }
+  
+  th:last-child,
+  td:last-child {
+    border-right: none;
+  }
+  
+  tr {
+    background-color: white;
+    font-weight: 600;
+  }
+  
+  tbody tr:nth-child(even) {
+    background: rgb(234, 235, 234);
+  }
+  
+  table, th, td {
+    border-bottom: 1px solid rgb(203, 203, 203);
+  }
+  

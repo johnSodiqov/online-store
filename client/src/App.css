@@ -1,9 +1,27 @@
-body{
-  background-color: #FFF5E1;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #e3e3e3;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.container {
+  width: 100%;
+  padding: 20px;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0;
-  padding: 0;
-  color: #2C4A36;
+  flex-wrap: wrap;
+}
+button {
+  padding: 10px 20px;
+  background-color: #ff6600;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease;
 }

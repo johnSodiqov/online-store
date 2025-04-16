@@ -7,6 +7,7 @@ CREATE TABLE "Product" (
     "stock" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "discount" TEXT NOT NULL,
+    "img_URL" TEXT NOT NULL DEFAULT 'https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage_%E3%83%92%E3%82%9A%E3%82%AF%E3%83%88-760x460.png',
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );

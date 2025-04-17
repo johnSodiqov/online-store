@@ -44,14 +44,12 @@ export default function Table() {
             <th>Created Date</th>
             <th>Discount</th>
             <th>Image URL</th>
+            <th>Action</th>
           </tr>
         </thead>
 
         <tbody>
           {products?.map((product) => {
-            {
-              console.log(product);
-            }
             return (
               <tr key={product.id}>
                 <td>
@@ -64,6 +62,15 @@ export default function Table() {
                 <td>{product.ceratedAt}</td>
                 <td>{product.discount}</td>
                 <td>{product.img_URL.slice(12, 34)}...</td>
+                <td>
+                  <button className="action-btn">Edit</button>
+                  <button
+                    className="action-btn"
+                    onClick={() => deleteMutation.mutate(product.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             );
           })}

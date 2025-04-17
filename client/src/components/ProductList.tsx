@@ -21,39 +21,10 @@ export default function ProductList() {
   });
 
   const createMutation = useMutation({
-    mutationFn: (newProduct: { name: string; price: number }) =>
+    mutationFn: (newProduct: any) =>
       axios.post("http://localhost:3000/products", newProduct),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
-  });
-
-  const [newProduct, setNewProduct] = useState({
-    name: "",
-    price: "",
-    description: "",
-    stock: "",
-    discount: "",
-    img_URL: "",
-  });
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewProduct((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-   
-    try {
-      const productToSend = {
-        ...newProduct,
-        price: parseFloat(newProduct.price),
-        stock: parseInt(newProduct.stock),
-        
-      };
-      await axios.post("http://localhost:3000/products", productToSend
-        
-      );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
       alert("Товар успешно добавлен!");
       // Очистка формы
       setNewProduct({
@@ -64,10 +35,39 @@ export default function ProductList() {
         discount: "",
         img_URL: "",
       });
-    } catch (err) {
-      console.error(err);
+    },
+    onError: () => {
       alert("Ошибка при добавлении товара.");
-    }
+    },
+  });
+
+  const [newProduct, setNewProduct] = useState({
+    name: "",
+    price: "",
+    description: "",
+    stock: "",
+    discount: "",
+    img_URL: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewProduct((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const productToSend = {
+      ...newProduct,
+      price: parseFloat(newProduct.price),
+      stock: parseInt(newProduct.stock),
+    };
+
+    createMutation.mutate(productToSend); // <--- это запускает мутацию
   };
 
   if (isLoading) return <div>Загрузка...</div>;

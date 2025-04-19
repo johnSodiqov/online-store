@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import "./Table.css";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Table() {
   const queryClient = useQueryClient();
@@ -9,6 +10,8 @@ export default function Table() {
   const [editingId, setEditingId] = useState([]);
   const [editedName, setEditedName] = useState("");
   const [editedPrice, setEditedPrice] = useState("");
+
+  const notify = () => toast("Edited");
 
   const { data: products, isLoading } = useQuery({
     queryKey: ["products"],
@@ -18,7 +21,11 @@ export default function Table() {
 
   const deleteMutation = useMutation({
     mutationFn: (id) => axios.delete(`http://localhost:3000/products/${id}`),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
+    onSuccess: () => 
+      {
+        queryClient.invalidateQueries({ queryKey: ["products"] })
+        toast("Deleted")
+      },
   });
 
   const updateMutation = useMutation({
@@ -63,7 +70,9 @@ export default function Table() {
                 <td>{product.discount}</td>
                 <td>{product.img_URL.slice(12, 34)}...</td>
                 <td>
-                  <button className="action-btn">Edit</button>
+                  <button className="action-btn" onClick={notify}>
+                    Edit
+                  </button>
                   <button
                     className="action-btn"
                     onClick={() => deleteMutation.mutate(product.id)}

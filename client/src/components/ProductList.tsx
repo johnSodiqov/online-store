@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import "./ProductList.css";
 import Table from "./Table";
-
+import toast, { Toaster } from "react-hot-toast";
 type Product = {
   id: number;
   name: string;
@@ -13,6 +13,7 @@ type Product = {
 
 export default function ProductList() {
   const queryClient = useQueryClient();
+  const [modalStatus, setModalStatus] = useState(false);
 
   const { data: products, isLoading } = useQuery<Product[]>({
     queryKey: ["products"],
@@ -25,7 +26,7 @@ export default function ProductList() {
       axios.post("http://localhost:3000/products", newProduct),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
-      alert("Товар успешно добавлен!");
+      toast("Товар успешно добавлен!");
       // Очистка формы
       setNewProduct({
         name: "",
@@ -67,60 +68,72 @@ export default function ProductList() {
       stock: parseInt(newProduct.stock),
     };
 
-    createMutation.mutate(productToSend); // <--- это запускает мутацию
+    createMutation.mutate(productToSend);
   };
+
+  function showModal(status) {
+    setModalStatus(status);
+  }
 
   if (isLoading) return <div>Загрузка...</div>;
 
   return (
     <div className="container">
-      <div className="add-form">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            value={newProduct.name}
-            onChange={handleChange}
-            placeholder="Name"
-          />
-          <input
-            type="number"
-            name="price"
-            value={newProduct.price}
-            onChange={handleChange}
-            placeholder="Price"
-          />
-          <input
-            type="text"
-            name="description"
-            value={newProduct.description}
-            onChange={handleChange}
-            placeholder="Description"
-          />
-          <input
-            type="number"
-            name="stock"
-            value={newProduct.stock}
-            onChange={handleChange}
-            placeholder="Stock"
-          />
-          <input
-            type="number"
-            name="discount"
-            value={newProduct.discount}
-            onChange={handleChange}
-            placeholder="Discount"
-          />
-          <input
-            type="text"
-            name="img_URL"
-            value={newProduct.img_URL}
-            onChange={handleChange}
-            placeholder="Image URL"
-          />
-          <button type="submit">Добавить</button>
-        </form>
+      <div className="header">
+      <button onClick={() => showModal(true)}>Add Product</button>
       </div>
+      {modalStatus && (
+        <div className="add-form">
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="name"
+              value={newProduct.name}
+              onChange={handleChange}
+              placeholder="Name"
+            />
+            <input
+              type="number"
+              name="price"
+              value={newProduct.price}
+              onChange={handleChange}
+              placeholder="Price"
+            />
+            <input
+              type="text"
+              name="description"
+              value={newProduct.description}
+              onChange={handleChange}
+              placeholder="Description"
+            />
+            <input
+              type="number"
+              name="stock"
+              value={newProduct.stock}
+              onChange={handleChange}
+              placeholder="Stock"
+            />
+            <input
+              type="number"
+              name="discount"
+              value={newProduct.discount}
+              onChange={handleChange}
+              placeholder="Discount"
+            />
+            <input
+              type="text"
+              name="img_URL"
+              value={newProduct.img_URL}
+              onChange={handleChange}
+              placeholder="Image URL"
+            />
+            <div>
+              <button type="submit">Добавить</button>
+              <button onClick={()=>showModal(false)}>Close</button>
+            </div>
+          </form>
+        </div>
+      )}
 
       <Table />
     </div>

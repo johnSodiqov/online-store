@@ -1,49 +1,86 @@
+.table{
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.table button{
+  margin: 10px 10px;
+}
 table {
-    width: 100%;
-    max-width: 1200px;
-    background: rgb(44, 44, 44);
-    font-family: "Courier New", Courier, monospace;
-    border-collapse: collapse;
-    border-radius: 12px;
-    overflow: hidden;
-    color: black;
-  }
+  width: 100%;
+  background: rgb(44, 44, 44);
+  font-family: "Courier New", Courier, monospace;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  color: black;
+}
+
+caption {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding: 12px 10px;
+  background-color: rgba(29,45,91);
+  caption-side: top;
+  text-align: left;
+}
+
+thead {
+  background-color: rgba(29,45,91);
+  color: white;
+}
+
+th,
+td {
+  padding: 10px;
+  border-right: 1px solid rgb(203, 203, 203);
+}
+
+th:last-child,
+td:last-child {
+  border-right: none;
+}
+
+tr {
+  background-color: white;
+  font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(134, 140, 159, 0.994);
+}
+
+table,
+th,
+td {
+  border-bottom: 1px solid rgb(203, 203, 203);
+}
+
+table {
   
-  caption {
-    color: white;
-    font-weight: bold;
-    font-size: 1.5rem;
-    padding: 12px 10px;
-    background-color: rgb(114, 114, 114);
-    caption-side: top;
-    text-align: left;
-  }
-  
-  thead {
-    background-color: rgb(66, 66, 66);
-    color: white;
-  }
-  
-  th, td {
-    padding: 10px;
-    border-right: 1px solid rgb(203, 203, 203);
-  }
-  
-  th:last-child,
-  td:last-child {
-    border-right: none;
-  }
-  
-  tr {
-    background-color: white;
-    font-weight: 600;
-  }
-  
-  tbody tr:nth-child(even) {
-    background: rgb(234, 235, 234);
-  }
-  
-  table, th, td {
-    border-bottom: 1px solid rgb(203, 203, 203);
-  }
-  
+}
+table td {
+  background-color: #ffffff00;
+  min-height: 50px;
+}
+table th {
+  color: #000000;
+  font-size: 18px;
+}
+
+table td:last-child {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+table td:last-child button {
+  width: 50%;
+  height: 100%;
+}
+

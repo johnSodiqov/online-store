@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "./node_modules/@prisma/client"
 }
 
 datasource db {
@@ -17,4 +16,13 @@ model Product {
   createdAt   DateTime @default(now())
   discount    String
   img_URL     String   @default("https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage_%E3%83%92%E3%82%9A%E3%82%AF%E3%83%88-760x460.png")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String   @default("12345678")
+  role      String   @default("user")
+  createdAt DateTime @default(now())
 }

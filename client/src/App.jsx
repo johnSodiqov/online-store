@@ -3,6 +3,7 @@ import axios from "axios";
 import "./App.css";
 import ProductList from "./components/ProductList";
 import { Toaster } from "react-hot-toast";
+import Table from "./components/Table";
 
 const fetchProducts = async () => {
   const { data } = await axios.get("/products");
@@ -19,10 +20,11 @@ function App() {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="container">
-      <h1 className="w-100">Продукты</h1>
+    <div className="">
+      
 
       <ProductList />
+      
 
       <Toaster
         containerStyle={{

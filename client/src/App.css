@@ -16,6 +16,7 @@
   flex-wrap: wrap;
 }
 button {
+  font-size: 16px;
   padding: 10px 20px;
   background-color: #ff6600;
   color: #fff;
